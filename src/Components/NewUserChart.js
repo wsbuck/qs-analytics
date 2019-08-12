@@ -1,92 +1,99 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { makeStyles, rgbToHex } from '@material-ui/core/styles';
 
 import Chart from 'chart.js';
 
+var moment = require('moment');
 
-export default class LineGraph extends Component {
-  chartRef = React.createRef();
-  
-  componentDidMount() {
-      const myChartRef = this.chartRef.current.getContext("2d");
-      
-      new Chart(myChartRef, {
-          type: "line",
-          data: {
-              //Bring in data
-              labels: ["Jan", "Feb", "March"],
-              datasets: [
-                  {
-                      label: "Sales",
-                      data: [86, 67, 91],
-                  }
-              ]
-          },
-          options: {
-              //Customize chart options
+const useStyles = makeStyles(theme => ({
+  root: {
+  },
+  gridContainer: {
+    maxWidth: 800,
+    flexGrow: 1,
+    width: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: theme.spacing(1),
+  },
+}));
+
+
+export default function NewUserChart() {
+  const chartRef = React.createRef();
+  const classes = useStyles();
+  const [data, setData] = useState([8, 2, 10, 6, 3, 4, 9, 2, 3, 0]);
+
+  async function fetchData() {
+    const url = "/analytics/data/newusers";
+    const res = await fetch(url);
+    res.json()
+    .then(analytics => setData(analytics.new_user_counts))
+    .catch(err => console.log(err));
+  }
+
+  useEffect(() => {
+    const myChartRef = chartRef.current.getContext("2d");
+    fetchData();
+
+    const labels = [];
+    for (let i = 0; i < 10; i++) {
+      labels.push(moment().subtract(i, 'days').format('l'));
+    }
+
+    new Chart(myChartRef, {
+      type: "line",
+      data: {
+        //Bring in data
+        labels: labels,
+        datasets: [
+          {
+            label: "New Users",
+            data: data,
+            borderColor: '#6593a4',
+            backgroundColor: 'transparent',
           }
-      });
-  }
-  render() {
-      return (
-          <div>
-              <canvas
-                  id="myChart"
-                  ref={this.chartRef}
-              />
-          </div>
-      )
-  }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'New Users'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+        legend: {
+          display: false,
+        },
+      }
+    });
+  }, []);
+
+  return (
+    <Grid
+      className={classes.gridContainer}
+      container spacing={2} justify='center' alignItems='center'
+      alignContent='center'
+    >
+      <Grid item sm={12}>
+        <Card className={classes.root}>
+          <CardContent>
+            <canvas
+              id="myChart"
+              ref={chartRef}
+            />
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
+  );
 }
-
-// export default function NewUserChart() {
-//   const container = document.createElement('div');
-//   const cnvs = document.createElement('canvas');
-//   const ctx = cnvs.getContext('2d');
-//   ctx.id = 'newUserChart';
-//   ctx.width = 400;
-//   ctx.height = 400;
-
-//   container.appendChild(cnvs);
-
-//   const chartOptions = {
-//     type: 'bar',
-//     data: {
-//       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//       datasets: [{
-//         label: '# of Votes',
-//         data: [12, 19, 3, 5, 2, 3],
-//         backgroundColor: [
-//           'rgba(255, 99, 132, 0.2)',
-//           'rgba(54, 162, 235, 0.2)',
-//           'rgba(255, 206, 86, 0.2)',
-//           'rgba(75, 192, 192, 0.2)',
-//           'rgba(153, 102, 255, 0.2)',
-//           'rgba(255, 159, 64, 0.2)'
-//         ],
-//         borderColor: [
-//           'rgba(255, 99, 132, 1)',
-//           'rgba(54, 162, 235, 1)',
-//           'rgba(255, 206, 86, 1)',
-//           'rgba(75, 192, 192, 1)',
-//           'rgba(153, 102, 255, 1)',
-//           'rgba(255, 159, 64, 1)'
-//         ],
-//         borderWidth: 1
-//       }]
-//     },
-//     options: {
-//       scales: {
-//         yAxes: [{
-//           ticks: {
-//             beginAtZero: true
-//           }
-//         }]
-//       }
-//     }
-//   };
-
-//   var userChart = Chart(ctx, chartOptions);
-//   container.appendChild(userChart);
-
-//   return container;
-// }

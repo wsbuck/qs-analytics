@@ -92,6 +92,10 @@ export default function Header() {
     setOpen(false);
   }
 
+  function goLogOut() {
+    window.location.href = '/logout';
+  }
+
   return (
     <div className={classes.root}>
       <AppBar
@@ -101,7 +105,7 @@ export default function Header() {
         })}
       >
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -109,14 +113,14 @@ export default function Header() {
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography variant="h6" noWrap className={classes.title}>
             QUIVRsurf Analytics
           </Typography>
-          <Button color="inherit">Sign Out</Button>
+          <Button onClick={goLogOut} color="inherit">LOGOUT</Button>
         </Toolbar>
       </AppBar>
-      <Drawer
+      {/* <Drawer
         className={classes.drawer}
         variant="persistent"
         anchor="left"
@@ -148,7 +152,7 @@ export default function Header() {
             </ListItem>
           ))}
         </List>
-      </Drawer>
+      </Drawer> */}
     </div>
   );
 }

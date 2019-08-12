@@ -1,42 +1,39 @@
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   card: {
-    width: 200,
+    width: 150,
   },
   title: {
-    fontSize: 22,
+    fontSize: 16,
   },
   pos: {
     marginBottom: 12,
   },
 });
 
-export default function NumUsersCard() {
+export default function CountCard(props) {
   const classes = useStyles();
+  const { title, data } = props;
 
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography 
+        <Typography
           className={classes.title} color="textSecondary" gutterBottom
           component="h1"
         >
-          Convos
+          {title}
         </Typography>
         <Typography variant="h5" component="h2">
-          10
+          {data}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 }
