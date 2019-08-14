@@ -1,21 +1,21 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+// import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
+// import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ListItem from '@material-ui/core/ListItem';
+// import Divider from '@material-ui/core/Divider';
+// import IconButton from '@material-ui/core/IconButton';
+// import MenuIcon from '@material-ui/icons/Menu';
+// import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+// import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import InboxIcon from '@material-ui/icons/MoveToInbox';
+// import MailIcon from '@material-ui/icons/Mail';
 
 const drawerWidth = 240;
 
@@ -82,15 +82,15 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
-  function handleDrawerOpen() {
-    setOpen(true);
-  }
+  // function handleDrawerOpen() {
+  //   setOpen(true);
+  // }
 
-  function handleDrawerClose() {
-    setOpen(false);
-  }
+  // function handleDrawerClose() {
+  //   setOpen(false);
+  // }
 
   function goLogOut() {
     window.location.href = '/logout';
@@ -101,7 +101,7 @@ export default function Header() {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          // [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
@@ -115,7 +115,7 @@ export default function Header() {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6" noWrap className={classes.title}>
-            QUIVRsurf Analytics
+            QUIVRanalytics
           </Typography>
           <Button onClick={goLogOut} color="inherit">LOGOUT</Button>
         </Toolbar>
