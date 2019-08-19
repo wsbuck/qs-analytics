@@ -53,7 +53,7 @@ export default function NewUserChart(props) {
 
     const labels = [];
     for (let i = 0; i < 10; i++) {
-      labels.push(moment().subtract(10 - i, 'days').format('l'));
+      labels.push(moment().subtract(9 - i, 'days').format('l'));
     }
 
     new Chart(myChartRef, {
